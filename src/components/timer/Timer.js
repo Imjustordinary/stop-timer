@@ -17,7 +17,6 @@ function Timer() {
   const [started, setStarted] = useState(false);
 
   const resetHandler = useCallback(() => {
-    console.log("reset");
     setTimeH(0);
     setTimeM(0);
     setTimeMs(0);
@@ -27,7 +26,6 @@ function Timer() {
   }, []);
 
   const stopHandler = useCallback(() => {
-    console.log("stop");
     setStopTime(true);
   }, []);
 
