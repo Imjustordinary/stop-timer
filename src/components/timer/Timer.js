@@ -26,21 +26,28 @@ function Timer() {
   }, []);
 
   const stopHandler = useCallback(() => {
-    setStopTime(true);
+    setStopTime((prev) => !prev);
   }, []);
 
   const StartedButtons = memo(() => {
     return (
       <>
-        <Button onClick={stopHandler} variant="btn btn-outline-danger mx-2">
-          Stop
+        <Button
+          onClick={stopHandler}
+          variant={
+            !!stopTime
+              ? "btn mx-2".concat(" btn-outline-success")
+              : "btn mx-2".concat(" btn-outline-danger")
+          }
+        >
+          {!!stopTime ? "Start" : "Stop"}
         </Button>
         <Button onClick={resetHandler} variant="btn btn-outline-warning mx-2">
           Reset
         </Button>
       </>
     );
-  }, []);
+  }, [stopTime]);
 
   const OnStartHandler = useCallback(() => {
     setStopTime(false);
@@ -61,7 +68,7 @@ function Timer() {
     } else {
       return <InitialButton />;
     }
-  }, [started]);
+  }, [started, stopTime]);
 
   const startTiming = useCallback(() => {
     if (timeMs > 99) {
